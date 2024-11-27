@@ -9,7 +9,7 @@ interface PostCardProps {
 
 export default function PostCard({ post }: PostCardProps) {
   return (
-    <article className="bg-white rounded-lg shadow mb-4 max-w-lg mx-auto">
+    <article className="bg-white rounded-lg border-b mb-4 max-w-lg mx-auto">
       {/* Post Header */}
       <div className="flex items-center p-4">
         <div className="relative h-10 w-10 mr-3">

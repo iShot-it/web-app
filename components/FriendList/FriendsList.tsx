@@ -19,7 +19,7 @@ interface FriendsListProps {
 
 export default function FriendsList({ user, friends }: FriendsListProps) {
   return (
-    <div className="w-full max-w-xs bg-white rounded-lg   ">
+    <div className="w-full  max-w-xs bg-white rounded-lg   ">
       {/* User Profile Section */}
       <div className="p-4 ">
         <div className="flex items-center gap-3">

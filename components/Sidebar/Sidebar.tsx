@@ -11,6 +11,8 @@ import {
   Camera,
   DollarSign,
   Menu,
+  BellDotIcon,
+  User,
 } from "lucide-react";
 import Image from "next/image";
 
@@ -58,6 +60,16 @@ const navItems: NavItem[] = [
     label: "Monetise",
     href: "/monetise",
   },
+  {
+    icon: <BellDotIcon className="w-6 h-6" />,
+    label: "Notification",
+    href: "/notification",
+  },
+  {
+    icon: <User className="w-6 h-6" />,
+    label: "Profile",
+    href: "/profile",
+  },
 ];
 
 export default function Sidebar() {
@@ -66,14 +78,22 @@ export default function Sidebar() {
   return (
     <>
       {/* Sidebar */}
-      <div className=" bg-white shadow-lg min-h-screen flex flex-col ">
+      <div
+        className={`sticky top-0 left-0 h-screen transform md:translate-x-0 transition duration-200 ease-in-out z-30 max-w-[320px] w-full bg-white  border-r`}
+      >
         {/* Logo */}
-        <div className="p-6">
-          <Image src={Ishot} alt="Ishot" className="mx-auto" />
+        <div className="py-2">
+          <Image
+            src={Ishot}
+            alt="Ishot"
+            className="mx-auto"
+            width={100}
+            height={100}
+          />
         </div>
 
         {/* Navigation */}
-        <nav className="px-4 py-2 space-y-2">
+        <nav className="px-4 py-2">
           {navItems.map((item, index) => (
             <Link
               key={item.href}
