@@ -1,4 +1,4 @@
-import Friends from "@/components/Friends/Friends";
+// import Friends from "@/components/Friends/Friends";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import React from "react";
 

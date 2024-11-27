@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+// import { useState } from "react";
 import Link from "next/link";
 import {
   Home,
@@ -10,7 +10,6 @@ import {
   Monitor,
   Camera,
   DollarSign,
-  Menu,
   BellDotIcon,
   User,
 } from "lucide-react";
@@ -73,7 +72,7 @@ const navItems: NavItem[] = [
 ];
 
 export default function Sidebar() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(true);
+  // const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(true);
 
   return (
     <>
@@ -94,7 +93,7 @@ export default function Sidebar() {
 
         {/* Navigation */}
         <nav className="px-4 py-2">
-          {navItems.map((item, index) => (
+          {navItems.map((item) => (
             <Link
               key={item.href}
               href={item.href}

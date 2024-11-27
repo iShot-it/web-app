@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 
 interface Friend {
   id: string;
@@ -21,6 +20,7 @@ export default function SuggestedFriendsList({
   user,
   friends,
 }: FriendsListProps) {
+  console.log(user)
   return (
     <div className="w-full max-w-xs bg-white rounded-lg  border border-gray-200 ">
       {/* Friends Section */}
