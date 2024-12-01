@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { ReactQuery } from "@/Providers/QueryProvider";
+import { Toaster } from "@/components/ui/toaster";
+import { AuthProvider } from "@/context/AuthContext";
 
 const roadRage = localFont({
   src: "./fonts/RoadRage-Regular.ttf",
@@ -33,7 +36,10 @@ export default function RootLayout({
       <body
         className={`${roadRage.variable}  ${geistMono.variable} antialiased`}
       >
-        {children}
+        <ReactQuery>
+          <AuthProvider>{children}</AuthProvider>
+          <Toaster />
+        </ReactQuery>
       </body>
     </html>
   );
