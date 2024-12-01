@@ -35,7 +35,6 @@ export default function ProfilePage() {
   const { updateprofile, isProfileUpdating } = useUpdateProfile();
 
   const handleOnSubmit: SubmitHandler<IUpdateUser> = async (data) => {
-    console.log({ ...data, id: loggedInUser?._id }, "data");
     const updatedData = {
       firstname: data.firstname,
       lastname: data.lastname,
@@ -44,8 +43,7 @@ export default function ProfilePage() {
     };
     try {
       const response = await updateprofile(updatedData as IUpdateUser);
-      console.log(response, "response");
-      if (response._id) {
+      if (response) {
         toast({
           description: "Profile Updated Successfully",
         });

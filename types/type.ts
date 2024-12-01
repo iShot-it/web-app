@@ -79,3 +79,11 @@ export interface Post {
       photo: string|undefined; 
 
   }
+
+  export type IFriendsList= {
+    userId: string;
+    username: string;
+    photo: string; // URL to the user's photo
+  }[]
+  
+ 

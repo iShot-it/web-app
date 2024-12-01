@@ -25,7 +25,6 @@ const SignInForm = () => {
   const { isLoggingIn, login } = useLogin();
 
   const handleOnSubmit: SubmitHandler<ILoginPayload> = async (data) => {
-    console.log(data, "data");
     try {
       console.log("testing");
       const response = await login(data);
@@ -43,7 +42,7 @@ const SignInForm = () => {
     } catch (error: any) {
       toast({
         variant: "destructive",
-        description: error?.data?.message,
+        description: "Invalid credentials",
       });
       console.log(error);
     }

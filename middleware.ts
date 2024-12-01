@@ -23,7 +23,6 @@ export function middleware(request: NextRequest) {
   if (token) {
     requestHeaders.set('Authorization', `Bearer ${token}`)
   }
-console.log(request.headers)
   // Allow the request to continue
   return NextResponse.next({
     request: {
