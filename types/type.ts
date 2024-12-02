@@ -97,6 +97,8 @@
     media: string[]; // Array of media URLs (can be empty)
     longitude: string; // Longitude coordinate
     latitude: string; // Latitude coordinate
+    likeCount: number,
+    commentCount: 1,
     link: string; // URL link associated with the post
     isPrivate: boolean; // Indicates if the post is private
     createdAt: string; // ISO string for creation date

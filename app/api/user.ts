@@ -3,6 +3,7 @@ import {
   // useInfiniteQuery,
   useMutation,
   useQuery,
+  useQueryClient,
 } from "@tanstack/react-query";
 import { useMemo } from "react";
 // import { endpoints, fetcher, mutator } from "../axios";
@@ -35,7 +36,7 @@ export function useGetUser(option?: { enabled: boolean }) {
 
 export function useUpdateProfile() {
    const {loggedInUser}= useAuth()
-    // const queryClient = useQueryClient();
+    const queryClient = useQueryClient();
     const { mutateAsync, data, isPending, isError, error } = useMutation<
        IUser,
       any,
@@ -44,7 +45,7 @@ export function useUpdateProfile() {
       mutationFn: (values: IUpdateUser) =>
         mutator({ method: "PUT", data: values, url: endpoints.user.editProfile(loggedInUser?._id as string ) }),
       onSuccess: () => {
-        // queryClient.invalidateQueries({ queryKey: queryKeys.user.root });
+        queryClient.invalidateQueries({ queryKey: queryKeys.user.root });
       },
     });
   

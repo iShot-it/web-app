@@ -15,7 +15,19 @@ interface PostCardProps {
 
 export default function PostCard({ post }: PostCardProps) {
 
-  const {}=useLikePost()
+  const {likePost, isLikingPost}=useLikePost()
+ const handleLikePostClick = async (postid:string)=>{
+
+  try {
+    
+    const response  = await likePost({postid})
+    console.log(response, "response liking post")
+  } catch (error) {
+    console.log(error, "error liking post")
+    
+  }
+ }
+
   return (
     <article className="bg-white rounded-lg border-b mb-4 max-w-lg mx-auto">
       {/* Post Header */}
@@ -76,12 +88,12 @@ export default function PostCard({ post }: PostCardProps) {
       <div className="p-4">
         <div className="flex items-center justify-between">
           <button className="flex items-center space-x-1 text-gray-600 hover:text-gray-900">
-            <Heart className="w-6 h-6" />
-            {/* <span>{post.likes}</span> */}
+            <Heart className="w-6 h-6 text-red-500" onClick={()=>handleLikePostClick(post._id)} />
+            <span>{post.likeCount}</span>
           </button>
           <button className="flex items-center space-x-1 text-gray-600 hover:text-gray-900">
             <MessageCircle className="w-6 h-6" />
-            {/* <span>{post.comments}</span> */}
+            <span>{post.commentCount}</span>
           </button>
           <button className="flex items-center text-gray-600 hover:text-gray-900">
             <Share2 className="w-6 h-6" />

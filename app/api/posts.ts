@@ -36,16 +36,16 @@ import { useAuth } from "@/context/AuthContext";
 
   export function useLikePost() {
     const {loggedInUser}= useAuth()
-    //  const queryClient = useQueryClient();
+     const queryClient = useQueryClient();
      const { mutateAsync, data, isPending, isError, error } = useMutation<
         any,
        any,
-       {id:string}
+       {postid:string}
      >({
-       mutationFn: (values: {id:string}) =>
-         mutatormgt({ method: "P0sT", data: values, url: endpoints.posts.like }),
+       mutationFn: (values: {postid:string}) =>
+         mutatormgt({ method: "POST", data: values, url: endpoints.posts.like }),
        onSuccess: () => {
-        //  queryClient.invalidateQueries({ queryKey: queryKeys.posts.posts });
+         queryClient.invalidateQueries({ queryKey: queryKeys.posts.posts });
        },
      });
    

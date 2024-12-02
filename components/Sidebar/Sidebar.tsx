@@ -15,6 +15,13 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+
 import Ishot from "@/assets/ishot.svg";
 
 interface NavItem {
@@ -78,18 +85,18 @@ export default function Sidebar() {
     <>
       {/* Sidebar */}
       <div
-        className={`sticky top-0 left-0 h-screen transform md:translate-x-0 transition duration-200 ease-in-out z-30 max-w-[320px] w-full bg-white  border-r`}
+        className={`sticky top-0 left-0 h-screen transform md:translate-x-0 transition duration-200 ease-in-out z-30 md:max-w-[320px] w-full bg-white  border-r`}
       >
         {/* Logo */}
-        <div className="py-2 relative w-full min-h-[50px]">
-      <Image
-        src={Ishot}
-        alt="Ishot"
-        fill
-        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-        className="object-contain"
-      />
-    </div>
+        <div className="py-2 relative w-full h-[50px]">
+          <Image
+            src={Ishot}
+            alt="Ishot"
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-contain"
+          />
+        </div>
 
         {/* Navigation */}
         <nav className="md:px-4 py-2 ">
@@ -97,9 +104,17 @@ export default function Sidebar() {
             <Link
               key={item.href}
               href={item.href}
-              className="flex items-center gap-4 px-3 md:px-4 py-3  md:mx-0 text-gray-700 hover:bg-gray-100 rounded-md transition-colors duration-150"
+              className="flex items-center gap-4 px-3 md:px-4 py-3 mx-auto md:mx-0 text-gray-700 hover:bg-gray-100 rounded-md transition-colors duration-150"
             >
-              {item.icon}
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger>{item.icon}</TooltipTrigger>
+                  <TooltipContent>
+                    <span className="font-medium md:hidden">{item.label}</span>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
+
               <div className="md:flex flex-col  hidden ">
                 <span className="font-medium">{item.label}</span>
               </div>

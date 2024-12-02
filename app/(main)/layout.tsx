@@ -5,7 +5,7 @@ import React from "react";
 const Mainlayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <section className="w-full min-h-screen flex justify-between ">
-      <div className="md:flex-[1]">
+      <div className="md:selection:flex-[1]">
         <Sidebar />
       </div>
       <div className="flex-[2] w-full">{children}</div>

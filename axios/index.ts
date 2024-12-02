@@ -41,14 +41,14 @@ const createAxiosInstance = (baseUrlKey: ApiType) => {
   );
 
   // Add response interceptor for global error handling
-  axiosInstance.interceptors.response.use(
-    (response) => response,
-    (error) => {
-      // Optional: add global error handling logic
-      console.error('API Error:', error);
-      return Promise.reject(error);
-    }
-  );
+  // axiosInstance.interceptors.response.use(
+  //   (response) => response,
+  //   (error) => {
+  //     // Optional: add global error handling logic
+  //     console.error('API Error:', error);
+  //     return Promise.reject(error);
+  //   }
+  // );
 
   return axiosInstance;
 };
@@ -61,6 +61,8 @@ export const fetcher = async <T>(
   url: string, 
   config?: AxiosRequestConfig
 ): Promise<T> => {
+
+  console.log(url, "userMgtApi")
   try {
     const res = await usermgtApi.get(url, { ...config });
     return res.data.data;
@@ -101,6 +103,8 @@ export const mutator = async <Data>(
 export const mutatormgt = async <Data>(
   request: AxiosRequestConfig
 ): Promise<Data> => {
+
+  console.log(request, "request")
   try {
     const res = await newsmgtApi(request);
     return res.data;
