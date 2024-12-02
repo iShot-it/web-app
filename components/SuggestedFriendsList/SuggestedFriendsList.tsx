@@ -20,7 +20,6 @@ export default function SuggestedFriendsList({
   user,
   friends,
 }: FriendsListProps) {
-  console.log(user)
   return (
     <div className="w-full max-w-xs bg-white rounded-lg  border border-gray-200 ">
       {/* Friends Section */}

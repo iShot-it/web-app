@@ -137,5 +137,10 @@ export const mutatormgt = async <Data>(
     },
    friends:{
       friendslist :"/friends/list"
+   },
+   posts:{
+    posts:"/posts",
+    like:"/like/create",
+    share:"/"
    }
   };

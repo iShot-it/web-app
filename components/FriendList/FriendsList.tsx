@@ -1,20 +1,21 @@
 "use client";
 
+import { IFriendsList } from "@/types/type";
 import Image from "next/image";
 import Link from "next/link";
 
-interface Friend {
-  id: string;
-  name: string;
-  avatar: string;
-}
+// interface Friend {
+//   id: string;
+//   name: string;
+//   avatar: string;
+// }
 
 interface FriendsListProps {
   user: {
     name: string;
     avatar: string;
   };
-  friends: Friend[];
+  friends: IFriendsList;
 }
 
 export default function FriendsList({ user, friends }: FriendsListProps) {
@@ -48,17 +49,17 @@ export default function FriendsList({ user, friends }: FriendsListProps) {
         <h3 className="text-sm font-medium text-gray-500 mb-3">Your friends</h3>
         <div className="space-y-3">
           {friends.map((friend) => (
-            <div key={friend.id} className="flex items-center gap-3">
+            <div key={friend.userId} className="flex items-center gap-3">
               <div className="relative h-10 w-10">
                 <Image
-                  src={friend.avatar}
-                  alt={friend.name}
+                  src={friend.photo}
+                  alt={friend.username}
                   fill
                   className="rounded-full object-cover"
                 />
               </div>
               <div>
-                <p className="font-medium text-gray-900">{friend.name}</p>
+                <p className="font-medium text-gray-900">{friend.username}</p>
                 <p className="text-sm text-gray-500">Friend</p>
               </div>
             </div>
