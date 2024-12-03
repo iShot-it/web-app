@@ -20,7 +20,7 @@ export default function SuggestedFriendsList({
   user,
   friends,
 }: FriendsListProps) {
-  console.log(user)
+  console.log(user);
   return (
     <div className="w-full max-w-xs bg-white rounded-lg  border border-gray-200 ">
       {/* Friends Section */}
@@ -47,6 +47,18 @@ export default function SuggestedFriendsList({
               </div>
             </div>
           ))}
+{/* 
+<DropdownMenu>
+  <DropdownMenuTrigger>Open</DropdownMenuTrigger>
+  <DropdownMenuContent>
+    <DropdownMenuLabel>My Account</DropdownMenuLabel>
+    <DropdownMenuSeparator />
+    <DropdownMenuItem>Profile</DropdownMenuItem>
+    <DropdownMenuItem>Billing</DropdownMenuItem>
+    <DropdownMenuItem>Team</DropdownMenuItem>
+    <DropdownMenuItem>Subscription</DropdownMenuItem>
+  </DropdownMenuContent>
+</DropdownMenu> */}
         </div>
       </div>
     </div>

@@ -3,8 +3,8 @@ export const queryKeys = {
       root: [{ type: "currentUser" }],
       notification: [{ type: "userNotification" }],
     },
-    event: {
-      root: [{ type: "event" }],
+    friends: {
+      friendsList: [{ type: "friendsList" }],
       recentEvents: [{ type: "recentEvents" }],
       recentMedias: [{ type: "recentMedias" }],
       explore: [{ type: "explore" }],
@@ -12,9 +12,8 @@ export const queryKeys = {
       user: (id: string) => [{ type: "eventUser", id }],
       signature: [{ type: "signature" }],
     },
-    favorite: {
-      root: [{ type: "favoriteEvent" }],
-      id: (id: string) => [{ type: "favoriteEventById", id }],
+    posts: {
+      posts:[{type:"posts"}]
     },
     auth: {
       root: [{ type: "auth" }],

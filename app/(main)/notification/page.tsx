@@ -1,3 +1,4 @@
+import { avatar } from "@/lib/constant";
 import Image from "next/image";
 
 interface NotificationItem {
@@ -56,7 +57,7 @@ export default function Notification() {
   );
 }
 
-function NotificationItem({ username, action, avatar }: NotificationItem) {
+function NotificationItem({ username, action }: NotificationItem) {
   return (
     <div className="flex items-center gap-3 py-3">
       <div className="relative w-10 h-10 rounded-full overflow-hidden">

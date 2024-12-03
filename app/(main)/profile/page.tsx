@@ -1,26 +1,24 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
+import Image from "next/image";
 import { Camera, Loader, Mail, Phone, User } from "lucide-react";
+
 import { useGetUser, useUpdateProfile } from "@/app/api/user";
 import LoadingSkeleton from "./loading";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { IUpdateUser } from "@/types/type";
-import { useAuth } from "@/context/AuthContext";
 import { useToast } from "@/hooks/use-toast";
-import Image from "next/image";
 
 export default function ProfilePage() {
   const { toast } = useToast();
   const { profileData, profileLoading } = useGetUser();
-  const { loggedInUser } = useAuth();
-  console.log(profileData, "loggedinuser");
-
+  console.log(profileData, "profileData");
   const [isEditing, setIsEditing] = useState(false);
-  const [profileImage, setProfileImage] = useState<string | null>(null);
+  const [, setProfileImage] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const { register, handleSubmit } = useForm({
+  const { register, handleSubmit, reset } = useForm({
     defaultValues: {
       id: profileData?._id,
       firstname: profileData?.firstname,
@@ -32,10 +30,23 @@ export default function ProfilePage() {
     },
   });
 
+  useEffect(() => {
+    if (profileData) {
+      reset({
+        id: profileData._id,
+        firstname: profileData.firstname,
+        lastname: profileData.lastname,
+        email: profileData.email,
+        phoneNumber: profileData.phoneNumber,
+        username: profileData.username,
+        photo: profileData.photo,
+      });
+    }
+  }, [profileData, reset]);
+
   const { updateprofile, isProfileUpdating } = useUpdateProfile();
 
   const handleOnSubmit: SubmitHandler<IUpdateUser> = async (data) => {
-    console.log({ ...data, id: loggedInUser?._id }, "data");
     const updatedData = {
       firstname: data.firstname,
       lastname: data.lastname,
@@ -44,8 +55,7 @@ export default function ProfilePage() {
     };
     try {
       const response = await updateprofile(updatedData as IUpdateUser);
-      console.log(response, "response");
-      if (response._id) {
+      if (response) {
         toast({
           description: "Profile Updated Successfully",
         });
@@ -58,7 +68,6 @@ export default function ProfilePage() {
     }
   };
 
-  console.log(profileImage, "profileImage");
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {

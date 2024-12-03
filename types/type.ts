@@ -1,17 +1,17 @@
-export interface Post {
-    id: string
-    user: {
-      name: string
-      avatar: string
-    }
-    image: string
-    caption?: string
-    location?: string
-    timestamp: string
-    likes: number
-    comments: number
-    timeAgo: string
-  }
+// export interface Post {
+//     id: string
+//     user: {
+//       name: string
+//       avatar: string
+//     }
+//     image: string
+//     caption?: string
+//     location?: string
+//     timestamp: string
+//     likes: number
+//     comments: number
+//     timeAgo: string
+//   }
 
   export type IRegisterPayload = {
     firstname: string;  // User's first name
@@ -79,3 +79,34 @@ export interface Post {
       photo: string|undefined; 
 
   }
+
+  export type IFriendsList= {
+    userId: string;
+    username: string;
+    photo: string; // URL to the user's photo
+  }[]
+
+  export interface Post {
+    userInfo: {
+      username: string;
+      userID: string;
+      photo: string; // URL to the user's photo
+    };
+    _id: string; // Unique identifier for the post
+    post: string; // The content of the post
+    media: string[]; // Array of media URLs (can be empty)
+    longitude: string; // Longitude coordinate
+    latitude: string; // Latitude coordinate
+    likeCount: number,
+    commentCount: 1,
+    link: string; // URL link associated with the post
+    isPrivate: boolean; // Indicates if the post is private
+    createdAt: string; // ISO string for creation date
+    updatedAt: string; // ISO string for last update date
+    __v: number; // Version key (used by MongoDB)
+  }
+  
+  export type IPosts = Post[];
+  
+  
+ 

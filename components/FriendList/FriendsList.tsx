@@ -1,23 +1,38 @@
 "use client";
 
+import { useAuth } from "@/context/AuthContext";
+import { removeAuthCookie } from "@/lib/auth";
+import { IFriendsList } from "@/types/type";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
-interface Friend {
-  id: string;
-  name: string;
-  avatar: string;
-}
+// interface Friend {
+//   id: string;
+//   name: string;
+//   avatar: string;
+// }
 
 interface FriendsListProps {
   user: {
     name: string;
     avatar: string;
   };
-  friends: Friend[];
+  friends: IFriendsList;
 }
 
 export default function FriendsList({ user, friends }: FriendsListProps) {
+  const {loggedInUser}= useAuth()
+
+  const router = useRouter()
+
+const handleLogout = ()=>{
+  removeAuthCookie()
+
+  router.push("auth/sign-in")
+
+}
+
   return (
     <div className="w-full  max-w-xs bg-white rounded-lg   ">
       {/* User Profile Section */}
@@ -25,16 +40,16 @@ export default function FriendsList({ user, friends }: FriendsListProps) {
         <div className="flex items-center gap-3">
           <div className="relative h-12 w-12">
             <Image
-              src={user.avatar}
+              src={loggedInUser?.photo as string}
               alt={user.name}
               fill
               className="rounded-full object-cover"
             />
           </div>
           <div className="flex-1">
-            <h2 className="font-bold text-gray-900">{user.name}</h2>
+            <h2 className="font-bold text-gray-900">{loggedInUser?.username}</h2>
             <button
-              onClick={() => console.log("Logout clicked")}
+              onClick={ handleLogout}
               className="text-sm text-gray-600 hover:text-gray-900"
             >
               Logout
@@ -48,17 +63,17 @@ export default function FriendsList({ user, friends }: FriendsListProps) {
         <h3 className="text-sm font-medium text-gray-500 mb-3">Your friends</h3>
         <div className="space-y-3">
           {friends.map((friend) => (
-            <div key={friend.id} className="flex items-center gap-3">
+            <div key={friend.userId} className="flex items-center gap-3">
               <div className="relative h-10 w-10">
                 <Image
-                  src={friend.avatar}
-                  alt={friend.name}
+                  src={friend.photo}
+                  alt={friend.username}
                   fill
                   className="rounded-full object-cover"
                 />
               </div>
               <div>
-                <p className="font-medium text-gray-900">{friend.name}</p>
+                <p className="font-medium text-gray-900">{friend.username}</p>
                 <p className="text-sm text-gray-500">Friend</p>
               </div>
             </div>
