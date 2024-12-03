@@ -8,16 +8,14 @@ import { useGetUser, useUpdateProfile } from "@/app/api/user";
 import LoadingSkeleton from "./loading";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { IUpdateUser } from "@/types/type";
-import { useAuth } from "@/context/AuthContext";
 import { useToast } from "@/hooks/use-toast";
 
 export default function ProfilePage() {
   const { toast } = useToast();
   const { profileData, profileLoading } = useGetUser();
-  const { loggedInUser } = useAuth();
   console.log(profileData, "profileData");
   const [isEditing, setIsEditing] = useState(false);
-  const [profileImage, setProfileImage] = useState<string | null>(null);
+  const [, setProfileImage] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const { register, handleSubmit, reset } = useForm({

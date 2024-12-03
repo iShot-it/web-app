@@ -2,8 +2,7 @@
 import { useGetAllPost } from "@/app/api/posts";
 import PostCard from "@/components/PostCard/PostCard";
 // import Search from "@/components/Search/Search";
-import { avatar } from "@/lib/constant";
-import { Post } from "@/types/type";
+
 import PostSkeleton from "../PostSkeletonLoader/PostSkeletonLoader";
 
 export default function Posts() {

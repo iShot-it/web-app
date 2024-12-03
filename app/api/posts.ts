@@ -8,9 +8,8 @@ import {
   import { useMemo } from "react";
   // import { endpoints, fetcher, mutator } from "../axios";
   import { IPosts,  } from "@/types/type";
-  import { endpoints, fetcher, fetchermgt, mutator, mutatormgt } from "@/axios";
+  import { endpoints,  fetchermgt, mutatormgt } from "@/axios";
   import { queryKeys } from "@/React-Query";
-import { useAuth } from "@/context/AuthContext";
   
   export function useGetAllPost(option?: { enabled: boolean }) {
     console.log(option, "option");
@@ -35,7 +34,7 @@ import { useAuth } from "@/context/AuthContext";
   }
 
   export function useLikePost() {
-    const {loggedInUser}= useAuth()
+    // const {loggedInUser}= useAuth()
      const queryClient = useQueryClient();
      const { mutateAsync, data, isPending, isError, error } = useMutation<
         any,

@@ -13,6 +13,7 @@ import { queryKeys } from "@/React-Query";
 import { useAuth } from "@/context/AuthContext";
 
 export function useGetUser(option?: { enabled: boolean }) {
+  console.log(option)
 //   const accessToken = getAuthToken();
   const { data, isLoading, refetch, isRefetching, error, isError } = useQuery<IUser>({
     queryKey: queryKeys.user.root,

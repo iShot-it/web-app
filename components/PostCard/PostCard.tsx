@@ -15,7 +15,7 @@ interface PostCardProps {
 
 export default function PostCard({ post }: PostCardProps) {
 
-  const {likePost, isLikingPost}=useLikePost()
+  const { likePost } = useLikePost();
  const handleLikePostClick = async (postid:string)=>{
 
   try {

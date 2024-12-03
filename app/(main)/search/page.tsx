@@ -128,7 +128,7 @@ export default function SearchPage() {
 
           {searchQuery && filteredUsers.length === 0 && (
             <div className="text-center py-8 text-gray-500">
-              No users found matching "{searchQuery}"
+              No users found matching {searchQuery}
             </div>
           )}
         </div>

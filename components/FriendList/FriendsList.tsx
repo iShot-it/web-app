@@ -3,7 +3,6 @@
 import { useAuth } from "@/context/AuthContext";
 import { removeAuthCookie } from "@/lib/auth";
 import { IFriendsList } from "@/types/type";
-import { RockingChair } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";

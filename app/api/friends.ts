@@ -6,11 +6,12 @@ import {
   } from "@tanstack/react-query";
   import { useMemo } from "react";
   // import { endpoints, fetcher, mutator } from "../axios";
-  import { IFriendsList, IUpdateUser, IUser } from "@/types/type";
-  import { endpoints, fetcher, mutator } from "@/axios";
+  import { IFriendsList } from "@/types/type";
+  import { endpoints, fetcher } from "@/axios";
   import { queryKeys } from "@/React-Query";
   
   export function useGetFriendsList(option?: { enabled: boolean }) {
+    console.log(option)
   //   const accessToken = getAuthToken();
     const { data, isLoading, refetch, isRefetching, error, isError } = useQuery<IFriendsList>({
       queryKey: queryKeys.friends.friendsList,
