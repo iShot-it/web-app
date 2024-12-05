@@ -34,7 +34,7 @@ export default function FriendsList({ user, friends }: FriendsListProps) {
         <div className="flex items-center gap-3">
           <div className="relative h-12 w-12">
             <Image
-              src={loggedInUser?.photo as string}
+              src={loggedInUser?.photo as string  || avatar}
               alt={user.name}
               fill
               className="rounded-full object-cover"
