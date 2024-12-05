@@ -9,6 +9,7 @@ import LoadingSkeleton from "./loading";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { IUpdateUser } from "@/types/type";
 import { useToast } from "@/hooks/use-toast";
+import { avatar } from "@/lib/constant";
 
 export default function ProfilePage() {
   const { toast } = useToast();
@@ -99,10 +100,7 @@ export default function ProfilePage() {
               <div className="flex flex-col items-center space-y-4">
                 <div className="w-32 h-32 rounded-full overflow-hidden bg-gray-200 relative">
                   <Image
-                    src={
-                      profileData?.photo ||
-                      "https://picsum.photos/200/300?random=1"
-                    }
+                    src={profileData?.photo || avatar}
                     alt="Profile picture"
                     fill
                     className="w-full h-full object-cover"

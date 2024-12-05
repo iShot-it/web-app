@@ -89,6 +89,7 @@ import React from "react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 import PostSkeleton from "../PostSkeletonLoader/PostSkeletonLoader";
+import { avatar } from "@/lib/constant";
 
 interface MediaItem {
   url: string;
@@ -161,7 +162,7 @@ export default function PostMedia({ mediaUrls }: PostMediaProps) {
         return (
           <div className="relative aspect-video w-full">
             <Image
-              src={item.url}
+              src={item.url || avatar}
               alt="Post image"
               fill
               className="object-cover"

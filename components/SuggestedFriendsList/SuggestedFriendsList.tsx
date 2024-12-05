@@ -40,7 +40,7 @@ export default function SuggestedFriendsList({
             <div key={friend.id} className="flex items-center gap-3">
               <div className="relative h-10 w-10">
                 <Image
-                  src={friend.avatar}
+                  src={friend.avatar || avatar}
                   alt={friend.name}
                   fill
                   className="rounded-full object-cover"
