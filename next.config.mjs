@@ -24,6 +24,12 @@ const nextConfig = {
         port: "",
         // pathname: '/**',
       },
+      {
+        protocol: "https",
+        hostname: "ishot-it.s3.amazonaws.com",
+        port: "",
+        // pathname: '/**',
+      },
     ],
   },
 };

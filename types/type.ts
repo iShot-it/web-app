@@ -109,4 +109,36 @@
   export type IPosts = Post[];
   
   
- 
+  export type Permission= {
+    CAN_CREATE: string;
+    CAN_POST: string;
+    CAN_LIKE: string;
+    CAN_UPDATE_A_POST: string;
+    CAN_UPDATE_AN_ACCOUNT: string;
+    CAN_DEACTIVATE_ACCOUNT: string;
+    CAN_REFER_SOMEONE: string;
+    CAN_SHARE: string;
+  }
+  
+  export type User= {
+    _id: string;
+    userType: string;
+    permissions: string[];
+    status: string;
+    createdAt: string;
+    username: string;
+    email: string;
+    photo?: string; // Optional, as it's not present in the second object
+    __v: number;
+    token: string;
+    firstname: string;
+    lastname: string;
+    phoneNumber?: string; // Optional, as it's not present in the second object
+  }
+  
+  export type SearchResponse ={
+    success: boolean;
+    data: User[];
+    message: string;
+  }
+  

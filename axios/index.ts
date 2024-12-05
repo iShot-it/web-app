@@ -62,7 +62,7 @@ export const fetcher = async <T>(
   config?: AxiosRequestConfig
 ): Promise<T> => {
 
-  console.log(url, "userMgtApi")
+  console.log(config, "config");
   try {
     const res = await usermgtApi.get(url, { ...config });
     return res.data.data;
@@ -140,11 +140,13 @@ export const mutatormgt = async <Data>(
       avatarUpload: "/user/settings/avatar",
     },
    friends:{
-      friendslist :"/friends/list"
+      friendslist :"/friends/list",
+      friendsearch:"/friends/search",
    },
    posts:{
     posts:"/posts",
     like:"/like/create",
+    dislike:"/like/remove",
     share:"/"
    }
   };

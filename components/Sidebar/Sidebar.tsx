@@ -85,7 +85,7 @@ export default function Sidebar() {
     <>
       {/* Sidebar */}
       <div
-        className={`sticky top-0 left-0 h-screen transform md:translate-x-0 transition duration-200 ease-in-out z-30 md:max-w-[320px] w-full bg-white  border-r`}
+        className={`sticky top-0 left-0 h-screen transform md:translate-x-0 transition duration-200 ease-in-out z-30 md:max-w-[340px] md:w-full bg-white  border-r`}
       >
         {/* Logo */}
         <div className="py-2 relative w-full h-[50px]">
