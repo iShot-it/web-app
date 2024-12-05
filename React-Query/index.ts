@@ -5,6 +5,7 @@ export const queryKeys = {
     },
     friends: {
       friendsList: [{ type: "friendsList" }],
+      friendsearch: [{ type: "friendsearch" }],
       recentEvents: [{ type: "recentEvents" }],
       recentMedias: [{ type: "recentMedias" }],
       explore: [{ type: "explore" }],

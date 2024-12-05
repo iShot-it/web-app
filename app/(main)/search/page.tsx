@@ -1,52 +1,24 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Search, X } from "lucide-react";
 import { avatar } from "@/lib/constant";
-
-interface User {
-  id: string;
-  username: string;
-  avatar: string;
-  isInvited?: boolean;
-}
-
-const users: User[] = [
-  {
-    id: "1",
-    username: "Jide_banks",
-    avatar: "/placeholder.svg?height=40&width=40",
-  },
-  {
-    id: "2",
-    username: "Ishot",
-    avatar: "/placeholder.svg?height=40&width=40",
-  },
-  {
-    id: "3",
-    username: "Prince_albert",
-    avatar: "/placeholder.svg?height=40&width=40",
-  },
-  {
-    id: "4",
-    username: "Madamme",
-    avatar: "/placeholder.svg?height=40&width=40",
-  },
-  {
-    id: "5",
-    username: "Ibrahim",
-    avatar: "/placeholder.svg?height=40&width=40",
-  },
-];
+import { useFriendsSearch } from "@/app/api/friends";
+import { User } from "@/types/type";
 
 export default function SearchPage() {
   const [searchQuery, setSearchQuery] = useState("");
   const [invitedUsers, setInvitedUsers] = useState<Set<string>>(new Set());
+  const [filteredUsers, setFilteredUsers] = useState<User[]>([]);
 
-  const filteredUsers = users.filter((user) =>
-    user.username.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  // const { searchResult } = useFriendsSearch({ search: searchQuery });
+  console.log(searchQuery, "searchQuery");
+  // console.log(searchResult, "searchResult");
+  const { searchFriend } = useFriendsSearch();
+  // const filteredUsers = users.filter((user) =>
+  //   user.username.toLowerCase().includes(searchQuery.toLowerCase())
+  // );
 
   const handleInvite = (userId: string) => {
     setInvitedUsers((prev) => {
@@ -59,6 +31,23 @@ export default function SearchPage() {
       return newSet;
     });
   };
+
+  const handleFriendSearch = async ({
+    search: searchQuery,
+  }: {
+    search: string;
+  }) => {
+    if (!searchQuery) {
+      return;
+    }
+    const response = await searchFriend({ search: searchQuery });
+    setFilteredUsers(response.data);
+    console.log(response, "response");
+  };
+
+  useEffect(() => {
+    handleFriendSearch({ search: searchQuery });
+  }, [searchQuery]);
 
   return (
     <div className="min-h-screen  p-6">
@@ -95,14 +84,14 @@ export default function SearchPage() {
         <div className="space-y-3">
           {filteredUsers.map((user) => (
             <div
-              key={user.id}
+              key={user._id}
               className="flex items-center justify-between p-4 bg-white rounded-xl 
                        shadow-sm hover:shadow-md transition-shadow duration-200"
             >
               <div className="flex items-center space-x-4">
                 <div className="relative w-12 h-12 rounded-full overflow-hidden bg-gray-100">
                   <Image
-                    src={avatar}
+                    src={user.photo || avatar}
                     alt={user.username}
                     fill
                     className="object-cover"
@@ -113,15 +102,15 @@ export default function SearchPage() {
                 </span>
               </div>
               <button
-                onClick={() => handleInvite(user.id)}
-                className={`px-6 py-2 rounded-full font-medium transition-all duration-200 
+                onClick={() => handleInvite(user._id)}
+                className={`px-2 text-xs md:text-base md:px-6 py-2 rounded-full font-medium transition-all duration-200 
                           ${
-                            invitedUsers.has(user.id)
+                            invitedUsers.has(user._id)
                               ? "bg-green-50 text-green-600 hover:bg-green-100"
                               : "bg-blue-600 text-white hover:bg-blue-700"
                           }`}
               >
-                {invitedUsers.has(user.id) ? "Invited" : "+ Invite"}
+                {invitedUsers.has(user._id) ? "Invited" : "+ Invite"}
               </button>
             </div>
           ))}

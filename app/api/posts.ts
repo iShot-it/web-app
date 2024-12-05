@@ -59,4 +59,31 @@ import {
        [mutateAsync, data, isPending, error, isError]
      );
    }
+
+  export function useDisLikePost() {
+    // const {loggedInUser}= useAuth()
+     const queryClient = useQueryClient();
+     const { mutateAsync, data, isPending, isError, error } = useMutation<
+        any,
+       any,
+       {postid:string}
+     >({
+       mutationFn: (values: {postid:string}) =>
+         mutatormgt({ method: "DELETE", data: values, url: endpoints.posts.dislike }),
+       onSuccess: () => {
+         queryClient.invalidateQueries({ queryKey: queryKeys.posts.posts });
+       },
+     });
+   
+     return useMemo(
+       () => ({
+        disLikePost: mutateAsync,
+         data,
+         isdisLikingPost: isPending,
+         error,
+         isError,
+       }),
+       [mutateAsync, data, isPending, error, isError]
+     );
+   }
    

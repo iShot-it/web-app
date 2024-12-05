@@ -3,30 +3,55 @@
 import Image from "next/image";
 import TimeAgo from "timeago-react";
 
+import {
+  FacebookShareButton,
+  TwitterShareButton,
+  LinkedinShareButton,
+  WhatsappShareButton,
+  FacebookIcon,
+  TwitterIcon,
+  LinkedinIcon,
+  WhatsappIcon,
+} from "react-share";
+
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+
 import { Heart, MessageCircle, Share2 } from "lucide-react";
 import { Post } from "@/types/type";
 import { avatar } from "@/lib/constant";
 import PostMedia from "../PostMedia/PostMedia";
-import { useLikePost } from "@/app/api/posts";
-
+import { useDisLikePost, useLikePost } from "@/app/api/posts";
+import { FcLike } from "react-icons/fc";
 interface PostCardProps {
   post: Post;
 }
 
 export default function PostCard({ post }: PostCardProps) {
-
   const { likePost } = useLikePost();
- const handleLikePostClick = async (postid:string)=>{
+  const { disLikePost } = useDisLikePost();
+  const handleLikePostClick = async (postid: string) => {
+    try {
+      const response = await likePost({ postid });
+      console.log(response, "response liking post");
+    } catch (error) {
+      console.log(error, "error liking post");
+    }
+  };
 
-  try {
-    
-    const response  = await likePost({postid})
-    console.log(response, "response liking post")
-  } catch (error) {
-    console.log(error, "error liking post")
-    
-  }
- }
+  const handleDisLikePostClick = async (postid: string) => {
+    try {
+      const response = await disLikePost({ postid });
+      console.log(response, "response liking post");
+    } catch (error) {
+      console.log(error, "error liking post");
+    }
+  };
 
   return (
     <article className="bg-white rounded-lg border-b mb-4 max-w-lg mx-auto">
@@ -56,7 +81,7 @@ export default function PostCard({ post }: PostCardProps) {
             <TimeAgo datetime={post.updatedAt} locale="en-US" />
           </p>
         </div>
-        <PostMedia mediaUrl={post.media[0]} />
+        <PostMedia mediaUrls={post.media} />
       </div>
 
       {/* <div className="relative aspect-square">
@@ -88,7 +113,24 @@ export default function PostCard({ post }: PostCardProps) {
       <div className="p-4">
         <div className="flex items-center justify-between">
           <button className="flex items-center space-x-1 text-gray-600 hover:text-gray-900">
-            <Heart className="w-6 h-6 text-red-500" onClick={()=>handleLikePostClick(post._id)} />
+            {post?.likeCount === 1 ? (
+              <FcLike
+                size={25}
+                className="w-6 h-6 "
+                onClick={
+                  post.likeCount === 1
+                    ? () => handleDisLikePostClick(post._id)
+                    : () => handleLikePostClick(post._id) //we need to check who if i have like the post before
+                }
+              />
+            ) : (
+              <Heart
+                size={30}
+                className="w-6 h-6 "
+                onClick={() => handleLikePostClick(post._id)}
+              />
+            )}
+
             <span>{post.likeCount}</span>
           </button>
           <button className="flex items-center space-x-1 text-gray-600 hover:text-gray-900">
@@ -96,11 +138,46 @@ export default function PostCard({ post }: PostCardProps) {
             <span>{post.commentCount}</span>
           </button>
           <button className="flex items-center text-gray-600 hover:text-gray-900">
-            <Share2 className="w-6 h-6" />
+            <Dialog>
+              <DialogTrigger>
+                <Share2 className="w-6 h-6" />
+              </DialogTrigger>
+              <DialogContent>
+                <DialogHeader>
+                  <DialogDescription>
+                    <div className="flex justify-center space-x-4">
+                      <FacebookShareButton url={post.link} title={post.post}>
+                        <FacebookIcon size={32} round />
+                      </FacebookShareButton>
+
+                      <TwitterShareButton url={post.link} title={post.post}>
+                        <TwitterIcon size={32} round />
+                      </TwitterShareButton>
+
+                      <LinkedinShareButton url={post.link} title={post.post}>
+                        <LinkedinIcon size={32} round />
+                      </LinkedinShareButton>
+
+                      <WhatsappShareButton
+                        url={post.link}
+                        title={post.post}
+                        separator=":: "
+                      >
+                        <WhatsappIcon size={32} round />
+                      </WhatsappShareButton>
+                    </div>
+                  </DialogDescription>
+                </DialogHeader>
+              </DialogContent>
+            </Dialog>
           </button>
         </div>
         {/* {post.caption && <p className="mt-3 text-gray-900">{post.caption}</p>} */}
       </div>
     </article>
   );
+}
+
+{
+  /*  */
 }

@@ -1,17 +1,12 @@
 "use client";
-
-import { useAuth } from "@/context/AuthContext";
-import { removeAuthCookie } from "@/lib/auth";
-import { IFriendsList } from "@/types/type";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-// interface Friend {
-//   id: string;
-//   name: string;
-//   avatar: string;
-// }
+import { useAuth } from "@/context/AuthContext";
+import { removeAuthCookie } from "@/lib/auth";
+import { avatar } from "@/lib/constant";
+import { IFriendsList } from "@/types/type";
 
 interface FriendsListProps {
   user: {
@@ -22,16 +17,15 @@ interface FriendsListProps {
 }
 
 export default function FriendsList({ user, friends }: FriendsListProps) {
-  const {loggedInUser}= useAuth()
+  const { loggedInUser } = useAuth();
 
-  const router = useRouter()
+  const router = useRouter();
 
-const handleLogout = ()=>{
-  removeAuthCookie()
+  const handleLogout = () => {
+    removeAuthCookie();
 
-  router.push("auth/sign-in")
-
-}
+    router.push("auth/sign-in");
+  };
 
   return (
     <div className="w-full  max-w-xs bg-white rounded-lg   ">
@@ -47,9 +41,11 @@ const handleLogout = ()=>{
             />
           </div>
           <div className="flex-1">
-            <h2 className="font-bold text-gray-900">{loggedInUser?.username}</h2>
+            <h2 className="font-bold text-gray-900">
+              {loggedInUser?.username}
+            </h2>
             <button
-              onClick={ handleLogout}
+              onClick={handleLogout}
               className="text-sm text-gray-600 hover:text-gray-900"
             >
               Logout
@@ -66,7 +62,7 @@ const handleLogout = ()=>{
             <div key={friend.userId} className="flex items-center gap-3">
               <div className="relative h-10 w-10">
                 <Image
-                  src={friend.photo}
+                  src={friend.photo || avatar}
                   alt={friend.username}
                   fill
                   className="rounded-full object-cover"

@@ -116,8 +116,8 @@
   }
 }
 
-/* body{
-  background-color: #f9fafb;
-} */
+*{
+  transition: ease-in-out 0.3s;
+}
 
 
