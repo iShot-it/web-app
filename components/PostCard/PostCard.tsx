@@ -26,7 +26,7 @@ import { Heart, MessageCircle, Share2 } from "lucide-react";
 import { Post } from "@/types/type";
 import { avatar } from "@/lib/constant";
 import PostMedia from "../PostMedia/PostMedia";
-import { useDisLikePost, useLikePost } from "@/app/api/posts";
+import {  useLikePost } from "@/app/api/posts";
 import { FcLike } from "react-icons/fc";
 import { useRouter } from "next/navigation";
 interface PostCardProps {
