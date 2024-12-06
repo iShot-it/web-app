@@ -1,3 +1,5 @@
+import SinglePost from "@/app/(main)/post/[postid]/page";
+
 export const queryKeys = {
     user: {
       root: [{ type: "currentUser" }],
@@ -14,7 +16,8 @@ export const queryKeys = {
       signature: [{ type: "signature" }],
     },
     posts: {
-      posts:[{type:"posts"}]
+      posts:[{type:"posts"}],
+      SinglePost:[{type:"singelpost"}]
     },
     auth: {
       root: [{ type: "auth" }],
