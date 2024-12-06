@@ -37,7 +37,7 @@ export default function PostCard({ post }: PostCardProps) {
 
   const router = useRouter()
   const { likePost } = useLikePost();
-  const { disLikePost } = useDisLikePost();
+  // const { disLikePost } = useDisLikePost();
   const handleLikePostClick = async (postid: string) => {
     try {
       const response = await likePost({ postid });
