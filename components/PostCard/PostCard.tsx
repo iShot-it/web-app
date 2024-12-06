@@ -22,7 +22,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-import { Heart, MessageCircle, Router, Share2 } from "lucide-react";
+import { Heart, MessageCircle, Share2 } from "lucide-react";
 import { Post } from "@/types/type";
 import { avatar } from "@/lib/constant";
 import PostMedia from "../PostMedia/PostMedia";
@@ -47,14 +47,14 @@ export default function PostCard({ post }: PostCardProps) {
     }
   };
 
-  const handleDisLikePostClick = async (postid: string) => {
-    try {
-      const response = await disLikePost({ postid });
-      console.log(response, "response liking post");
-    } catch (error) {
-      console.log(error, "error liking post");
-    }
-  };
+  // const handleDisLikePostClick = async (postid: string) => {
+  //   try {
+  //     const response = await disLikePost({ postid });
+  //     console.log(response, "response liking post");
+  //   } catch (error) {
+  //     console.log(error, "error liking post");
+  //   }
+  // };
 
   return (
     <article onClick={()=>router.push(`/post/${post._id}`)} className="bg-white rounded-lg border-b mb-4 max-w-lg mx-auto">
