@@ -22,17 +22,20 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 
-import { Heart, MessageCircle, Share2 } from "lucide-react";
+import { Heart, MessageCircle, Router, Share2 } from "lucide-react";
 import { Post } from "@/types/type";
 import { avatar } from "@/lib/constant";
 import PostMedia from "../PostMedia/PostMedia";
 import { useDisLikePost, useLikePost } from "@/app/api/posts";
 import { FcLike } from "react-icons/fc";
+import { useRouter } from "next/navigation";
 interface PostCardProps {
   post: Post;
 }
 
 export default function PostCard({ post }: PostCardProps) {
+
+  const router = useRouter()
   const { likePost } = useLikePost();
   const { disLikePost } = useDisLikePost();
   const handleLikePostClick = async (postid: string) => {
@@ -54,7 +57,7 @@ export default function PostCard({ post }: PostCardProps) {
   };
 
   return (
-    <article className="bg-white rounded-lg border-b mb-4 max-w-lg mx-auto">
+    <article onClick={()=>router.push(`/post/${post._id}`)} className="bg-white rounded-lg border-b mb-4 max-w-lg mx-auto">
       {/* Post Header */}
       <div className="flex items-center p-4">
         <div className="relative h-10 w-10 mr-3">
@@ -113,15 +116,12 @@ export default function PostCard({ post }: PostCardProps) {
       <div className="p-4">
         <div className="flex items-center justify-between">
           <button className="flex items-center space-x-1 text-gray-600 hover:text-gray-900">
-            {post?.likeCount === 1 ? (
+            {post?.likeCount > 0 ? (
               <FcLike
                 size={25}
                 className="w-6 h-6 "
-                onClick={
-                  post.likeCount === 1
-                    ? () => handleDisLikePostClick(post._id)
-                    : () => handleLikePostClick(post._id) //we need to check who if i have like the post before
-                }
+                onClick={  () => handleLikePostClick(post._id) //we need to check who if i have like the post before
+}
               />
             ) : (
               <Heart

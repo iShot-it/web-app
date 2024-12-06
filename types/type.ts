@@ -98,7 +98,7 @@
     longitude: string; // Longitude coordinate
     latitude: string; // Latitude coordinate
     likeCount: number,
-    commentCount: 1,
+    commentCount: number,
     link: string; // URL link associated with the post
     isPrivate: boolean; // Indicates if the post is private
     createdAt: string; // ISO string for creation date
@@ -139,6 +139,13 @@
   export type SearchResponse ={
     success: boolean;
     data: User[];
+    message: string;  
+  }
+
+  export type SinglePostResponse={
+    success: boolean;
+    data: Post;
     message: string;
+
   }
   

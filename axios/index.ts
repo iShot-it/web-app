@@ -145,6 +145,7 @@ export const mutatormgt = async <Data>(
    },
    posts:{
     posts:"/posts",
+    singlepost:"/post/view",
     like:"/like/create",
     dislike:"/like/remove",
     share:"/"

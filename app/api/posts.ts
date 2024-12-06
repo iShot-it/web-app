@@ -33,6 +33,55 @@ import {
     );
   }
 
+  export function useGetSinglePost() {
+    // const queryClient = useQueryClient();
+    const { mutateAsync, data, isPending, isError, error } = useMutation<
+       any,
+      any,
+     {postid:string}
+    >({
+      mutationFn: (values: {postid:string}) =>
+        mutatormgt({ method: "POST", data: values, url: endpoints.posts.singlepost }),
+      onSuccess: () => {
+        // queryClient.invalidateQueries({ queryKey: queryKeys.user.root });
+      },
+      
+    });
+  
+    return useMemo(
+      () => ({
+        singlePost: mutateAsync,
+        data,
+        isFetchingSinglePost: isPending,
+        error,
+        isError,
+      }),
+      [mutateAsync, data, isPending, error, isError]
+    );
+  }
+
+  //   export function useGetSinglePost(option?: { postid: string }) {
+  //   console.log(option, "search")
+  //   const { data, isLoading, refetch, isRefetching, error, isError } = useQuery({
+  //     queryKey: [queryKeys.friends.friendsearch, option?.postid],
+  //     queryFn: () => fetchermgt(endpoints.posts.singlepost, { method: "POST", data: { search: option?.postid } }),
+  //     enabled: !!option?.postid,
+  //   });
+  
+  
+  //   return useMemo(
+  //     () => ({
+  //       singlePost: data,
+  //       postRefetch: refetch,
+  //       isfetchingpost: isLoading,
+  //       isRefetching,
+  //       error,
+  //       isError,
+  //     }),
+  //     [data, isLoading, refetch, isRefetching, error, isError]
+  //   );
+  // }
+
   export function useLikePost() {
     // const {loggedInUser}= useAuth()
      const queryClient = useQueryClient();
