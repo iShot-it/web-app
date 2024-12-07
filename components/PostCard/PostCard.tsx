@@ -71,7 +71,7 @@ export default function PostCard({ post }: PostCardProps) {
         <div className="flex-1">
           <h2 className="font-bold text-gray-900">{post.userInfo.username}</h2>
           <p className="text-sm text-gray-500">
-            <TimeAgo datetime={post.updatedAt} locale="en-US" />
+            <TimeAgo datetime={post.createdAt} locale="en-US" />
           </p>
         </div>
       </div>
@@ -81,7 +81,7 @@ export default function PostCard({ post }: PostCardProps) {
         <div className="text-xs my-2">
           <p className="">{post.post}</p>
           <p className="text-gray-500 italic">
-            <TimeAgo datetime={post.updatedAt} locale="en-US" />
+            <TimeAgo datetime={post.createdAt} locale="en-US" />
           </p>
         </div>
         <PostMedia mediaUrls={post.media} />
