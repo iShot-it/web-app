@@ -34,8 +34,7 @@ interface PostCardProps {
 }
 
 export default function PostCard({ post }: PostCardProps) {
-
-  const router = useRouter()
+ const router = useRouter()
   const { likePost } = useLikePost();
   // const { disLikePost } = useDisLikePost();
   const handleLikePostClick = async (postid: string) => {
@@ -57,10 +56,10 @@ export default function PostCard({ post }: PostCardProps) {
   // };
 
   return (
-    <article onClick={()=>router.push(`/post/${post._id}`)} className="bg-white rounded-lg border-b mb-4 max-w-lg mx-auto">
+    <article  className="bg-white rounded-lg border-b mb-4 max-w-lg mx-auto">
       {/* Post Header */}
       <div className="flex items-center p-4">
-        <div className="relative h-10 w-10 mr-3">
+        <div onClick={()=>router.push(`/post/${post._id}`)} className="relative h-10 w-10 mr-3">
           <Image
             src={post.userInfo.photo || avatar}
             alt={post.userInfo.username}
@@ -79,7 +78,7 @@ export default function PostCard({ post }: PostCardProps) {
       {/* Post Image */}
       <div>
         <div className="text-xs my-2">
-          <p className="">{post.post}</p>
+          <p onClick={()=>router.push(`/post/${post._id}`)} className="">{post.post}</p>
           <p className="text-gray-500 italic">
             <TimeAgo datetime={post.createdAt} locale="en-US" />
           </p>
