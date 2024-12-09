@@ -1,8 +1,19 @@
+import { removeAuthCookie } from "@/lib/auth";
 import axios, {  AxiosRequestConfig } from "axios";
 
 export enum ApiType {
   USERMGT = 'USERMGT',
   NEWSMGT = 'NEWSMGT',
+}
+export function getCookie(name: string): string | null {
+  // Ensure this runs only in browser environment
+  if (typeof window === 'undefined') {
+    return null;
+  }
+  const value = `; ${document.cookie}`;
+  const parts = value.split(`; ${name}=`);
+  if (parts.length === 2) return parts.pop()?.split(';').shift() ?? null;
+  return null;
 }
 
 const createAxiosInstance = (baseUrlKey: ApiType) => {
@@ -17,16 +28,6 @@ const createAxiosInstance = (baseUrlKey: ApiType) => {
     timeout: 10000,
   });
 
-  function getCookie(name: string): string | null {
-    // Ensure this runs only in browser environment
-    if (typeof window === 'undefined') {
-      return null;
-    }
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop()?.split(';').shift() ?? null;
-    return null;
-  }
 
   axiosInstance.interceptors.request.use(
     (config) => {
@@ -54,13 +55,16 @@ axiosInstance.interceptors.response.use(
         case 404:
           // Redirect to login page for 404 errors
           if (typeof window !== 'undefined') {
+            removeAuthCookie()
             window.location.replace('/auth/sign-in');
           }
           break;
         case 401:
           // Unauthorized: Redirect to login page
           if (typeof window !== 'undefined') {
+            removeAuthCookie()
             window.location.replace('/auth/sign-in');
+
           }
           break;
         // Add more cases for other status codes as needed

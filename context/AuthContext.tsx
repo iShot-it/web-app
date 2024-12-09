@@ -1,22 +1,23 @@
 "use client";
 
 import { useGetUser } from "@/app/api/user";
+import { getCookie } from "@/axios";
 import { IUser } from "@/types/type";
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext,  useState } from "react";
 
-interface SignupData {
-  _id: string;
-  userType: string;
-  permissions: any[];
-  status: string;
-  createdAt: string;
-  firstname: string;
-  lastname: string;
-  username: string;
-  email: string;
-  __v: number;
-  token: string;
-}
+// interface SignupData {
+//   _id: string;
+//   userType: string;
+//   permissions: any[];
+//   status: string;
+//   createdAt: string;
+//   firstname: string;
+//   lastname: string;
+//   username: string;
+//   email: string;
+//   __v: number;
+//   token: string;
+// }
 
 interface AuthContextType {
   loggedInUser: IUser | null;
@@ -26,14 +27,21 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const { profileData, profileLoading } = useGetUser();
-  const [loggedInUser, setLoggedInUser] = useState<IUser | null>(null);
 
-  useEffect(() => {
-    if (!loggedInUser && profileData && !profileLoading) {
-      setLoggedInUser(profileData as IUser);
-    }
-  }, [profileData, profileLoading, loggedInUser]);
+  const [loggedInUser, setLoggedInUser] = useState<IUser | null>(null);
+  const authToken = getCookie("auth_token")
+
+  if (authToken) {
+    
+    const { profileData } = useGetUser();
+    setLoggedInUser(profileData as IUser);
+  }
+  
+  // useEffect(() => {
+  //   if (!loggedInUser && profileData && !profileLoading ) {
+    
+  //   }
+  // }, [profileData, profileLoading, loggedInUser]);
 
   return (
     <AuthContext.Provider value={{ loggedInUser, setLoggedInUser }}>
