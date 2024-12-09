@@ -23,6 +23,19 @@ export function middleware(request: NextRequest) {
   if (token) {
     requestHeaders.set('Authorization', `Bearer ${token}`)
   }
+
+
+    // Allow the request to continue
+    const response = NextResponse.next({
+      request: {
+        headers: requestHeaders,
+      },
+    })
+    // Check if the response is a 404 (Not Found) error
+    if (response.status === 404) {
+      // Redirect to the login page
+      return NextResponse.redirect(new URL('/auth/sign-in', request.url))
+    }
   // Allow the request to continue
   return NextResponse.next({
     request: {

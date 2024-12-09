@@ -40,15 +40,49 @@ const createAxiosInstance = (baseUrlKey: ApiType) => {
     (error) => Promise.reject(error)
   );
 
-  // Add response interceptor for global error handling
-  // axiosInstance.interceptors.response.use(
-  //   (response) => response,
-  //   (error) => {
-  //     // Optional: add global error handling logic
-  //     console.error('API Error:', error);
-  //     return Promise.reject(error);
-  //   }
-  // );
+// Response interceptor for global error handling
+
+axiosInstance.interceptors.response.use(
+  (response) => response, // Return the response if there's no error
+  (error) => {
+    console.error('API Error:', error);
+
+    if (error.response) {
+      // The request was made and the server responded with a status code
+      // that falls out of the range of 2xx
+      switch (error.response.status) {
+        case 404:
+          // Redirect to login page for 404 errors
+          if (typeof window !== 'undefined') {
+            window.location.replace('/auth/sign-in');
+          }
+          break;
+        case 401:
+          // Unauthorized: Redirect to login page
+          if (typeof window !== 'undefined') {
+            window.location.replace('/auth/sign-in');
+          }
+          break;
+        // Add more cases for other status codes as needed
+        default:
+          // Handle other errors
+          break;
+      }
+    } else if (error.request) {
+      // The request was made but no response was received
+      console.error('No response received:', error.request);
+    } else {
+      // Something happened in setting up the request that triggered an Error
+      console.error('Error setting up request:', error.message);
+    }
+
+    // You can add global error handling logic here
+    // For example, show a toast notification
+
+    return Promise.reject(error);
+  }
+);
+
 
   return axiosInstance;
 };
