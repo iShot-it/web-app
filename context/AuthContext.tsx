@@ -3,7 +3,7 @@
 import { useGetUser } from "@/app/api/user";
 import { getCookie } from "@/axios";
 import { IUser } from "@/types/type";
-import React, { createContext, useContext,  useState } from "react";
+import React, { createContext, useContext,  useEffect,  useState } from "react";
 
 // interface SignupData {
 //   _id: string;
@@ -29,19 +29,26 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const [loggedInUser, setLoggedInUser] = useState<IUser | null>(null);
-  const authToken = getCookie("auth_token")
-
-  if (authToken) {
-    
+  
+  const getUser = ()=>{
+      const authToken = getCookie("auth_token")
+      
+      if (!authToken) {
+        return
+      }
     const { profileData } = useGetUser();
     setLoggedInUser(profileData as IUser);
-  }
+    }
   
-  // useEffect(() => {
-  //   if (!loggedInUser && profileData && !profileLoading ) {
+  
+  useEffect(() => {
+    // if (!loggedInUser && profileData && !profileLoading  ) {
+    //   const { profileData } = useGetUser();
     
-  //   }
-  // }, [profileData, profileLoading, loggedInUser]);
+    // }
+
+    getUser()
+  }, []);
 
   return (
     <AuthContext.Provider value={{ loggedInUser, setLoggedInUser }}>
