@@ -3,10 +3,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-import { useAuth } from "@/context/AuthContext";
 import { removeAuthCookie } from "@/lib/auth";
 import { avatar } from "@/lib/constant";
 import { IFriendsList } from "@/types/type";
+import { useGetUser } from "@/app/api/user";
 
 interface FriendsListProps {
   user: {
@@ -17,7 +17,7 @@ interface FriendsListProps {
 }
 
 export default function FriendsList({ user, friends }: FriendsListProps) {
-  const { loggedInUser } = useAuth();
+  const { profileData } = useGetUser();
 
   const router = useRouter();
 
@@ -34,16 +34,14 @@ export default function FriendsList({ user, friends }: FriendsListProps) {
         <div className="flex items-center gap-3">
           <div className="relative h-12 w-12">
             <Image
-              src={loggedInUser?.photo as string  || avatar}
+              src={(profileData?.photo as string) || avatar}
               alt={user.name}
               fill
               className="rounded-full object-cover"
             />
           </div>
           <div className="flex-1">
-            <h2 className="font-bold text-gray-900">
-              {loggedInUser?.username}
-            </h2>
+            <h2 className="font-bold text-gray-900">{profileData?.username}</h2>
             <button
               onClick={handleLogout}
               className="text-sm text-gray-600 hover:text-gray-900"
