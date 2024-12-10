@@ -25,9 +25,17 @@ const SinglePost = ({ params }: { params: { postid: string } }) => {
   }, []);
 
   console.log(params, "params");
-  return <div>
-    <button className="flex items-center mt-4 ml-4" onClick={()=>window.history.back()}><ChevronsLeft /> Back</button>
-    {post && <PostCard post={post} />}</div>;
+  return (
+    <div className="mx-4">
+      <button
+        className="flex items-center mt-4 ml-4"
+        onClick={() => window.history.back()}
+      >
+        <ChevronsLeft /> Back
+      </button>
+      {post && <PostCard post={post} />}
+    </div>
+  );
 };
 
 export default SinglePost;

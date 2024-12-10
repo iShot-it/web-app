@@ -25,7 +25,7 @@ const createAxiosInstance = (baseUrlKey: ApiType) => {
   const axiosInstance = axios.create({
     baseURL: baseUrls[baseUrlKey],
     // Add timeout to prevent hanging requests
-    timeout: 10000,
+    // timeout: 20000,
   });
 
 
@@ -56,14 +56,14 @@ axiosInstance.interceptors.response.use(
           // Redirect to login page for 404 errors
           if (typeof window !== 'undefined') {
             removeAuthCookie()
-            window.location.replace('/auth/sign-in');
+            window.location.href = '/auth/sign-in';
           }
           break;
         case 401:
           // Unauthorized: Redirect to login page
           if (typeof window !== 'undefined') {
             removeAuthCookie()
-            window.location.replace('/auth/sign-in');
+            window.location.href = '/auth/sign-in';
 
           }
           break;

@@ -13,7 +13,7 @@ import { queryKeys } from "@/React-Query";
 import { useAuth } from "@/context/AuthContext";
 
 export function useGetUser(option?: { enabled: boolean }) {
-  console.log(option)
+console.log(option, "option");
 //   const accessToken = getAuthToken();
   const { data, isLoading, refetch, isRefetching, error, isError } = useQuery<IUser>({
     queryKey: queryKeys.user.root,
@@ -37,6 +37,7 @@ export function useGetUser(option?: { enabled: boolean }) {
 
 export function useUpdateProfile() {
    const {loggedInUser}= useAuth()
+   console.log(loggedInUser, "looginuser")
     const queryClient = useQueryClient();
     const { mutateAsync, data, isPending, isError, error } = useMutation<
        IUser,

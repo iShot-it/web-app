@@ -44,7 +44,7 @@ const SignUpForm = () => {
     } catch (error: any) {
       toast({
         variant: "destructive",
-        description: error?.data?.message,
+        description: error?.message,
       });
       console.log(error);
     }

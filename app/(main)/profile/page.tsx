@@ -14,9 +14,9 @@ import { avatar } from "@/lib/constant";
 export default function ProfilePage() {
   const { toast } = useToast();
   const { profileData, profileLoading } = useGetUser();
-  console.log(profileData, "profileData");
   const [isEditing, setIsEditing] = useState(false);
-  const [, setProfileImage] = useState<string | null>(null);
+
+  const [profileImage, setProfileImage] = useState<string>();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const { register, handleSubmit, reset } = useForm({
@@ -52,7 +52,7 @@ export default function ProfilePage() {
       firstname: data.firstname,
       lastname: data.lastname,
       phoneNumber: data.phoneNumber,
-      photo: data.photo,
+      photo: profileImage,
     };
     try {
       const response = await updateprofile(updatedData as IUpdateUser);
@@ -62,6 +62,7 @@ export default function ProfilePage() {
         });
       }
     } catch (error) {
+      console.log(error);
       toast({
         variant: "destructive",
         description: "Something went wrong",
@@ -74,7 +75,7 @@ export default function ProfilePage() {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setProfileImage(reader.result as string);
+        setProfileImage(URL.createObjectURL(file));
       };
       reader.readAsDataURL(file);
     }
@@ -100,7 +101,7 @@ export default function ProfilePage() {
               <div className="flex flex-col items-center space-y-4">
                 <div className="w-32 h-32 rounded-full overflow-hidden bg-gray-200 relative">
                   <Image
-                    src={profileData?.photo || avatar}
+                    src={profileData?.photo || profileImage || avatar}
                     alt="Profile picture"
                     fill
                     className="w-full h-full object-cover"
@@ -241,7 +242,7 @@ export default function ProfilePage() {
           <div className="flex flex-col items-center space-y-6">
             <div className="w-32 h-32 rounded-full overflow-hidden bg-gray-200">
               <img
-                src={profileData?.photo || "/placeholder.svg"}
+                src={profileData?.photo || avatar}
                 alt="Profile picture"
                 className="w-full h-full object-cover"
               />
@@ -278,3 +279,5 @@ export default function ProfilePage() {
     </div>
   );
 }
+
+
