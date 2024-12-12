@@ -30,19 +30,7 @@
   export type ISignupResponse ={
     success: boolean;
     message: string;
-    data: {
-      _id: string;
-      userType: string;
-      permissions: any[]; // You might want to define a more specific type for permissions
-      status: string;
-      createdAt: string;
-      firstname: string;
-      lastname: string;
-      username: string;
-      email: string;
-      __v: number;
-      token: string;
-    }
+    data:IUser
   }
 
   export type IUser = {
@@ -138,7 +126,7 @@
   
   export type SearchResponse ={
     success: boolean;
-    data: User[];
+    data: SearchResult[];
     message: string;  
   }
 
@@ -149,3 +137,9 @@
 
   }
   
+  export type SearchResult = {
+    photo: string;
+    status: "UNACCEPTED" | "PENDING" | "ACCEPTED"; // Enum-like for predefined statuses
+    userId: string;
+    username: string;
+  };

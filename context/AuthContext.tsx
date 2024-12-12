@@ -27,29 +27,7 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-
   const [loggedInUser, setLoggedInUser] = useState<IUser | null>(null);
-  
-  const { profileData, profileLoading } = useGetUser();
-
-
-  // const getUser = ()=>{
-  //     // const authToken = getCookie("auth_token")
-      
-  //     // if (!authToken) {
-  //     //   return
-  //     // }
-  //   }
-  
-  
-  useEffect(() => {
-    if (!loggedInUser && profileData && !profileLoading  ) {
-        setLoggedInUser(profileData as IUser);
-    }
-
-
-  }, [ profileData,  profileLoading]);
-
   return (
     <AuthContext.Provider value={{ loggedInUser, setLoggedInUser }}>
       {children}

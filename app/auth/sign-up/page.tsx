@@ -10,12 +10,10 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { IRegisterPayload } from "@/types/type";
 import { useRegister } from "@/app/api/auth";
 import { useToast } from "@/hooks/use-toast";
-import { useRouter } from "next/navigation";
 import { setAuthCookie } from "@/lib/auth";
 
 const SignUpForm = () => {
   const { toast } = useToast();
-  const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const {
     register,
@@ -28,7 +26,7 @@ const SignUpForm = () => {
   const handleOnSubmit: SubmitHandler<IRegisterPayload> = async (data) => {
     try {
       console.log("testing");
-      const response = await signup(data);
+      const response = await signup({ ...data ,userType:"USER"});
       console.log(response, "response");
 
       if (response.success) {
@@ -39,7 +37,7 @@ const SignUpForm = () => {
           description:
             "You have successfully created your account, kindly check your email inbox or spam folder to get verification link.",
         });
-        router.push("/");
+        // router.push("/");
       }
     } catch (error: any) {
       toast({

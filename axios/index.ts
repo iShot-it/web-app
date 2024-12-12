@@ -80,13 +80,9 @@ axiosInstance.interceptors.response.use(
       console.error('Error setting up request:', error.message);
     }
 
-    // You can add global error handling logic here
-    // For example, show a toast notification
-
     return Promise.reject(error);
   }
 );
-
 
   return axiosInstance;
 };
@@ -167,9 +163,8 @@ export const mutatormgt = async <Data>(
       forgetPassword: "/auth/forgot-password",
       verifyForgetPassword: "/auth/verify-password-reset-token",
       resetPassword: "/auth/reset-password",
-      getGoogleAuth: "/auth/google-authurl",
-      googleLoginAuth: "/auth/google-signin",
-      googleRegisterAuth: "/auth/google-signup",
+      verifyEmail:(token:string)=> `/v1/user/verify-email/${token}`,
+     
     },
     user: {
       profile: "/user",
@@ -180,6 +175,7 @@ export const mutatormgt = async <Data>(
    friends:{
       friendslist :"/friends/list",
       friendsearch:"/friends/search",
+      friendrequest:"/friends/sendrequest",
    },
    posts:{
     posts:"/posts",

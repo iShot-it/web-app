@@ -55,3 +55,27 @@ export function useLogin() {
       [mutateAsync, data, isPending, error, isError]
     );
   }
+
+  export function useVerifyEmail() {
+    // const queryClient = useQueryClient();
+    const { mutateAsync, data, isPending, isError, error } = useMutation<any, any, { token: string }>(
+      {
+        mutationFn: (values: { token: string }) =>
+          mutator({ method: 'POST', data: values, url: endpoints.auth.verifyEmail(values.token) }),
+        onSuccess: () => {
+          // queryClient.invalidateQueries({ queryKey: queryKeys.user.root });
+        },
+      },
+    );
+  
+    return useMemo(
+      () => ({
+        verifyEmail: mutateAsync,
+        data,
+        isVerifying: isPending,
+        error,
+        isError,
+      }),
+      [mutateAsync, data, isPending, error, isError],
+    );
+  }

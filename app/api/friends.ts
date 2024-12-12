@@ -81,3 +81,30 @@ import {
       [mutateAsync, data, isPending, error, isError]
     );
   }
+
+  export function useSendFriendRequest() {
+    // const queryClient = useQueryClient();
+    const { mutateAsync, data, isPending, isError, error } = useMutation<
+       SearchResponse,
+      any,
+     {requestUser:string}
+    >({
+      mutationFn: (values: {requestUser:string}) =>
+        mutator({ method: "POST", data: values, url: endpoints.friends.friendrequest }),
+      onSuccess: () => {
+        // queryClient.invalidateQueries({ queryKey: queryKeys.user.root });
+      },
+      
+    });
+  
+    return useMemo(
+      () => ({
+        sendFriendRequest: mutateAsync,
+        data,
+         isPending,
+        error,
+        isError,
+      }),
+      [mutateAsync, data, isPending, error, isError]
+    );
+  }
