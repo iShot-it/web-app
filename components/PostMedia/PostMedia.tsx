@@ -160,7 +160,7 @@ export default function PostMedia({ mediaUrls }: PostMediaProps) {
     switch (item.type) {
       case "image":
         return (
-          <div className="relative aspect-video w-full">
+          <div className="relative aspect-[14/16] w-full">
             <Image
               src={item.url || avatar}
               alt="Post image"
@@ -172,7 +172,7 @@ export default function PostMedia({ mediaUrls }: PostMediaProps) {
         );
       case "video":
         return (
-          <div className="relative aspect-square w-full">
+          <div className="relative aspect-[14/16] w-full">
             <video
               src={item.url}
               controls

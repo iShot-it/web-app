@@ -80,11 +80,11 @@ export default function PostCard({ post }: PostCardProps) {
       </div>
 
       {/* Post Image */}
-      <div>
-        <div
-          onClick={() => router.push(`/post/${post._id}`)}
-          className="text-xs my-2"
-        >
+      <div
+        className="cursor-pointer"
+        onClick={() => router.push(`/post/${post._id}`)}
+      >
+        <div className="text-xs my-2">
           <p className="cursor-pointer">{post.post}</p>
           <p className="text-gray-500 italic">
             <TimeAgo datetime={post.createdAt} locale="en-US" />
@@ -166,7 +166,7 @@ export default function PostCard({ post }: PostCardProps) {
                       </LinkedinShareButton>
 
                       <WhatsappShareButton
-                        url={post.link}
+                        url={`${process.env.NEXT_PUBLIC_API_ISHOTIT}/post/${post._id}`}
                         title={post.post}
                         separator=":: "
                       >
