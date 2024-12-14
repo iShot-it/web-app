@@ -1,8 +1,14 @@
+
+"use client"
 import React from "react";
 
 const About = () => {
   return (
-    <div className="bg-white mx-2 pt-4 p-4">
+    <div className="bg-white  max-w-2xl mx-auto  pt-4 p-4">
+
+      <div>
+        <button onClick={() => window.history.back()}>Back</button>
+      </div>
       <div className="space-y-4">
         <h1 className="text-center text-xl sm:text-3xl lg:text-[55px] font-bold">
           About iShot-It App

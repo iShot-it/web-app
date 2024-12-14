@@ -64,7 +64,7 @@ const Friends = () => {
       <SuggestedFriendsList user={userData} friends={friendsData} />
 
       <div>
-        <Link className="flex flex-col gap-2 w-full items-center justify-center" href ="privacy-policy">Privacy Policy 
+        <Link className="flex flex-col gap-2 w-full items-center justify-center" href ="privacy">Privacy Policy 
       <span> © 2024 iShot-It App. </span>
      <span>  All Rights Reserved.</span>
             </Link>
