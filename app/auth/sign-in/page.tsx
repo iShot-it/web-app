@@ -13,11 +13,10 @@ import { useToast } from "@/hooks/use-toast";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 const SignInForm = () => {
-  const searchParams = useSearchParams();
   const { toast } = useToast();
   const router = useRouter();
   const { setLoggedInUser } = useAuth();
-  const callbackUrl = searchParams.get("callbackUrl") || "/";
+  // const callbackUrl = searchParams.get("callbackUrl") || "/";
 
   const [showPassword, setShowPassword] = useState(false);
   const {
@@ -42,7 +41,7 @@ const SignInForm = () => {
         toast({
           description: "Logged in Successfully",
         });
-        router.push(callbackUrl);
+        router.push("/");
       }
     } catch (error: any) {
       toast({
