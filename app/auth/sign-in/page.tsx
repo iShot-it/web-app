@@ -10,7 +10,7 @@ import { ILoginPayload } from "@/types/type";
 import { useLogin } from "@/app/api/auth";
 import { setAuthCookie } from "@/lib/auth";
 import { useToast } from "@/hooks/use-toast";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 const SignInForm = () => {
   const { toast } = useToast();
