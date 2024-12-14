@@ -1,4 +1,3 @@
-import SinglePost from "@/app/(main)/post/[postid]/page";
 
 export const queryKeys = {
     user: {

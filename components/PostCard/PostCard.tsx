@@ -34,7 +34,8 @@ interface PostCardProps {
 }
 
 export default function PostCard({ post }: PostCardProps) {
- const router = useRouter()
+  console.log(post.link, "post link");
+  const router = useRouter();
   const { likePost } = useLikePost();
   // const { disLikePost } = useDisLikePost();
   const handleLikePostClick = async (postid: string) => {
@@ -56,10 +57,13 @@ export default function PostCard({ post }: PostCardProps) {
   // };
 
   return (
-    <article  className="bg-white rounded-lg border-b mb-4 max-w-lg mx-auto">
+    <article className="bg-white rounded-lg border-b mb-4 max-w-lg mx-auto">
       {/* Post Header */}
-      <div className="flex items-center p-4">
-        <div onClick={()=>router.push(`/post/${post._id}`)} className="relative h-10 w-10 mr-3">
+      <div
+        onClick={() => router.push(`/post/${post._id}`)}
+        className="flex items-center p-4"
+      >
+        <div className="relative cursor-pointer h-10 w-10 mr-3">
           <Image
             src={post.userInfo.photo || avatar}
             alt={post.userInfo.username}
@@ -76,9 +80,12 @@ export default function PostCard({ post }: PostCardProps) {
       </div>
 
       {/* Post Image */}
-      <div>
+      <div
+        className="cursor-pointer"
+        onClick={() => router.push(`/post/${post._id}`)}
+      >
         <div className="text-xs my-2">
-          <p onClick={()=>router.push(`/post/${post._id}`)} className="">{post.post}</p>
+          <p className="cursor-pointer">{post.post}</p>
           <p className="text-gray-500 italic">
             <TimeAgo datetime={post.createdAt} locale="en-US" />
           </p>
@@ -119,8 +126,9 @@ export default function PostCard({ post }: PostCardProps) {
               <FcLike
                 size={25}
                 className="w-6 h-6 "
-                onClick={  () => handleLikePostClick(post._id) //we need to check who if i have like the post before
-}
+                onClick={
+                  () => handleLikePostClick(post._id) //we need to check who if i have like the post before
+                }
               />
             ) : (
               <Heart
@@ -158,7 +166,7 @@ export default function PostCard({ post }: PostCardProps) {
                       </LinkedinShareButton>
 
                       <WhatsappShareButton
-                        url={post.link}
+                        url={`${process.env.NEXT_PUBLIC_API_ISHOTIT}/post/${post._id}`}
                         title={post.post}
                         separator=":: "
                       >

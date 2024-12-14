@@ -4,6 +4,7 @@ import {
     // useInfiniteQuery,
     // useMutation,
     useQuery,
+    useQueryClient,
   } from "@tanstack/react-query";
   import { useMemo } from "react";
   // import { endpoints, fetcher, mutator } from "../axios";
@@ -83,7 +84,7 @@ import {
   }
 
   export function useSendFriendRequest() {
-    // const queryClient = useQueryClient();
+    const queryClient = useQueryClient();
     const { mutateAsync, data, isPending, isError, error } = useMutation<
        SearchResponse,
       any,
@@ -92,7 +93,7 @@ import {
       mutationFn: (values: {requestUser:string}) =>
         mutator({ method: "POST", data: values, url: endpoints.friends.friendrequest }),
       onSuccess: () => {
-        // queryClient.invalidateQueries({ queryKey: queryKeys.user.root });
+        queryClient.invalidateQueries({ queryKey: queryKeys.friends.friendsearch });
       },
       
     });

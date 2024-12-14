@@ -11,11 +11,12 @@ import { useLogin } from "@/app/api/auth";
 import { setAuthCookie } from "@/lib/auth";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
-import { useAuth } from '@/context/AuthContext';
+import { useAuth } from "@/context/AuthContext";
 const SignInForm = () => {
   const { toast } = useToast();
   const router = useRouter();
-  const{ setLoggedInUser}=useAuth()
+  const { setLoggedInUser } = useAuth();
+  // const callbackUrl = searchParams.get("callbackUrl") || "/";
 
   const [showPassword, setShowPassword] = useState(false);
   const {
@@ -34,8 +35,8 @@ const SignInForm = () => {
 
       if (response.success) {
         setAuthCookie(response.data.token);
-        
-         setLoggedInUser(response.data)
+
+        setLoggedInUser(response.data);
         console.log(true);
         toast({
           description: "Logged in Successfully",
