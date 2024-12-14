@@ -24,7 +24,7 @@ if(isFetchingPosts){
     <div className="min-h-screen w-full  pb-8 px-4">
       <div className=" mx-auto w-full space-y-6 border-b">
         {(posts || []).map((post) => {
-          if (!post.isPrivate) return null;
+          if (post.isPrivate) return null;
           return <PostCard key={post._id} post={post} />;
         })}
       </div>
