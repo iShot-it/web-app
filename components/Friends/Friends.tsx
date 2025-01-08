@@ -63,11 +63,15 @@ const Friends = () => {
       <Separator />
       <SuggestedFriendsList user={userData} friends={friendsData} />
 
-      <div>
-        <Link className="flex flex-col gap-2 w-full items-center justify-center" href ="privacy">Privacy Policy 
-      <span> © 2024 iShot-It App. </span>
-     <span>  All Rights Reserved.</span>
-            </Link>
+      <div className="flex flex-col gap-2 w-full items-center justify-center">
+        <Link className="" href="privacy">
+          Privacy Policy
+        </Link>
+        <Link className="" href="csae">
+          Child sexual abuse
+        </Link>
+        <span> © 2024 iShot-It App. </span>
+        <span> All Rights Reserved.</span>
       </div>
     </div>
   );
