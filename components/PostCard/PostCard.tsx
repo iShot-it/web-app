@@ -1,5 +1,4 @@
-
-"use client"
+"use client";
 import Image from "next/image";
 import TimeAgo from "timeago-react";
 
@@ -26,7 +25,7 @@ import { Heart, MessageCircle, Share2 } from "lucide-react";
 import { Post } from "@/types/type";
 import { avatar } from "@/lib/constant";
 import PostMedia from "../PostMedia/PostMedia";
-import {  useLikePost } from "@/app/api/posts";
+import { useLikePost } from "@/app/api/posts";
 import { FcLike } from "react-icons/fc";
 import { useRouter } from "next/navigation";
 interface PostCardProps {
@@ -34,8 +33,13 @@ interface PostCardProps {
 }
 
 export default function PostCard({ post }: PostCardProps) {
-  console.log(post.link, "post link");
   const router = useRouter();
+
+  const imageUrl =
+    post.userInfo.photo && post.userInfo.photo !== "null"
+      ? post.userInfo.photo
+      : avatar;
+
   const { likePost } = useLikePost();
   // const { disLikePost } = useDisLikePost();
   const handleLikePostClick = async (postid: string) => {
@@ -47,15 +51,6 @@ export default function PostCard({ post }: PostCardProps) {
     }
   };
 
-  // const handleDisLikePostClick = async (postid: string) => {
-  //   try {
-  //     const response = await disLikePost({ postid });
-  //     console.log(response, "response liking post");
-  //   } catch (error) {
-  //     console.log(error, "error liking post");
-  //   }
-  // };
-
   return (
     <article className="bg-white rounded-lg border-b mb-4 max-w-lg mx-auto">
       {/* Post Header */}
@@ -65,10 +60,13 @@ export default function PostCard({ post }: PostCardProps) {
       >
         <div className="relative cursor-pointer h-10 w-10 mr-3">
           <Image
-            src={post.userInfo.photo || avatar}
+            src={imageUrl}
             alt={post.userInfo.username}
             fill
             className="rounded-full object-cover"
+            onError={(e) => {
+              (e.target as HTMLImageElement).src = avatar;
+            }}
           />
         </div>
         <div className="flex-1">
@@ -92,31 +90,6 @@ export default function PostCard({ post }: PostCardProps) {
         </div>
         <PostMedia mediaUrls={post.media} />
       </div>
-
-      {/* <div className="relative aspect-square">
-        <Image
-          src={post.media[0]}
-          alt={post.post || "Post image"}
-          fill
-          className="object-cover"
-        /> */}
-      {/* iShot Watermark */}
-      {/* {post.location && (
-          <div className="absolute bottom-4 left-4 bg-white bg-opacity-90 rounded-lg px-3 py-2 flex items-center space-x-2">
-            <Image
-              src="/placeholder.svg?height=20&width=20"
-              alt="iShot logo"
-              width={20}
-              height={20}
-              className="rounded"
-            />
-            <div className="text-xs">
-              <p className="font-medium">{post.location}</p>
-              <p className="text-gray-500">{post.timestamp}</p>
-            </div>
-          </div>
-        )} */}
-      {/* </div> */}
 
       {/* Post Actions */}
       <div className="p-4">

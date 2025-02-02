@@ -10,7 +10,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { IRegisterPayload } from "@/types/type";
 import { useRegister } from "@/app/api/auth";
 import { useToast } from "@/hooks/use-toast";
-import { setAuthCookie } from "@/lib/auth";
+import { setItem } from "@/lib/localStorage";
 
 const SignUpForm = () => {
   const { toast } = useToast();
@@ -26,11 +26,11 @@ const SignUpForm = () => {
   const handleOnSubmit: SubmitHandler<IRegisterPayload> = async (data) => {
     try {
       console.log("testing");
-      const response = await signup({ ...data ,userType:"USER"});
+      const response = await signup({ ...data, userType: "USER" });
       console.log(response, "response");
 
       if (response.success) {
-        setAuthCookie(response.data.token);
+        setItem("auth_token", response.data.token);
 
         console.log(true);
         toast({

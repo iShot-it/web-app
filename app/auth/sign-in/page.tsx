@@ -12,6 +12,7 @@ import { setAuthCookie } from "@/lib/auth";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
+import { setItem } from "@/lib/localStorage";
 const SignInForm = () => {
   const { toast } = useToast();
   const router = useRouter();
@@ -34,13 +35,14 @@ const SignInForm = () => {
       console.log(response, "response");
 
       if (response.success) {
-        setAuthCookie(response.data.token);
+        setItem("auth_token", response.data.token);
 
         setLoggedInUser(response.data);
         console.log(true);
         toast({
           description: "Logged in Successfully",
         });
+
         router.push("/");
       }
     } catch (error: any) {

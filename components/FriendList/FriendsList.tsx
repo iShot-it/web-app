@@ -7,6 +7,7 @@ import { removeAuthCookie } from "@/lib/auth";
 import { avatar } from "@/lib/constant";
 import { IFriendsList } from "@/types/type";
 import { useGetUser } from "@/app/api/user";
+import { clearStorage } from "@/lib/localStorage";
 
 interface FriendsListProps {
   user: {
@@ -22,7 +23,7 @@ export default function FriendsList({ user, friends }: FriendsListProps) {
   const router = useRouter();
 
   const handleLogout = () => {
-    removeAuthCookie();
+    clearStorage();
 
     router.push("auth/sign-in");
   };

@@ -1,4 +1,5 @@
 import { removeAuthCookie } from "@/lib/auth";
+import { clearStorage, getItem } from "@/lib/localStorage";
 import axios, {  AxiosRequestConfig } from "axios";
 
 export enum ApiType {
@@ -31,7 +32,7 @@ const createAxiosInstance = (baseUrlKey: ApiType) => {
 
   axiosInstance.interceptors.request.use(
     (config) => {
-      const accessToken = getCookie('auth_token');
+      const accessToken = getItem('auth_token');
       
       if (accessToken) {
         config.headers['Authorization'] = `Bearer ${accessToken}`;
@@ -47,24 +48,28 @@ axiosInstance.interceptors.response.use(
   (response) => response, // Return the response if there's no error
   (error) => {
     console.error('API Error:', error);
-
+    const publicPaths = ['/auth/sign-in', '/auth/sign-up',"/privacy","/about"]
+    const path = window.location.pathname
     if (error.response) {
       // The request was made and the server responded with a status code
       // that falls out of the range of 2xx
       switch (error.response.status) {
-        case 404:
+        case 404 :
           // Redirect to login page for 404 errors
-          if (typeof window !== 'undefined') {
-            removeAuthCookie()
-            window.location.href = '/auth/sign-in';
+          if (!publicPaths.includes(path)) {
+            if (typeof window !== "undefined") {
+              clearStorage();
+              window.location.href = "/auth/sign-in";
+            }
           }
           break;
         case 401:
           // Unauthorized: Redirect to login page
-          if (typeof window !== 'undefined') {
-            removeAuthCookie()
-            window.location.href = '/auth/sign-in';
-
+          if (!publicPaths.includes(path)) {
+            if (typeof window !== "undefined") {
+              clearStorage();
+              window.location.href = "/auth/sign-in";
+            }
           }
           break;
         // Add more cases for other status codes as needed

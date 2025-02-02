@@ -23,11 +23,7 @@ interface FriendsListProps {
   friends: Friend[];
 }
 
-export default function SuggestedFriendsList({
-  user,
-  friends,
-}: FriendsListProps) {
-  console.log(user);
+export default function SuggestedFriendsList({ friends }: FriendsListProps) {
   return (
     <div className="w-full max-w-xs bg-white rounded-lg  border border-gray-200 ">
       {/* Friends Section */}
