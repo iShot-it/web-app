@@ -3,7 +3,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
-import { removeAuthCookie } from "@/lib/auth";
 import { avatar } from "@/lib/constant";
 import { IFriendsList } from "@/types/type";
 import { useGetUser } from "@/app/api/user";

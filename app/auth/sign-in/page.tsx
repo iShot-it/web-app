@@ -8,7 +8,6 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import Ishot from "@/assets/ishot.svg";
 import { ILoginPayload } from "@/types/type";
 import { useLogin } from "@/app/api/auth";
-import { setAuthCookie } from "@/lib/auth";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
