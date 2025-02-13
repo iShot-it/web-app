@@ -26,6 +26,12 @@ export default function FriendsList({ user, friends }: FriendsListProps) {
 
     router.push("auth/sign-in");
   };
+  
+
+  const imageUrl =
+    profileData?.photo && profileData.photo !== "null"
+      ? profileData.photo
+      : avatar;
 
   return (
     <div className="w-full  max-w-xs bg-white rounded-lg   ">
@@ -34,7 +40,7 @@ export default function FriendsList({ user, friends }: FriendsListProps) {
         <div className="flex items-center gap-3">
           <div className="relative h-12 w-12">
             <Image
-              src={(profileData?.photo as string) || avatar}
+              src={imageUrl}
               alt={user.name}
               fill
               className="rounded-full object-cover"
