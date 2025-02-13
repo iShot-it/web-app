@@ -16,7 +16,7 @@ interface FriendsListProps {
   friends: IFriendsList;
 }
 
-export default function FriendsList({ user, friends }: FriendsListProps) {
+export default function FriendsList({ friends }: FriendsListProps) {
   const { profileData } = useGetUser();
 
   const router = useRouter();
@@ -26,7 +26,6 @@ export default function FriendsList({ user, friends }: FriendsListProps) {
 
     router.push("auth/sign-in");
   };
-  
 
   const imageUrl =
     profileData?.photo && profileData.photo !== "null"
@@ -41,7 +40,7 @@ export default function FriendsList({ user, friends }: FriendsListProps) {
           <div className="relative h-12 w-12">
             <Image
               src={imageUrl}
-              alt={user.name}
+              alt={profileData?.firstname || ""}
               fill
               className="rounded-full object-cover"
             />
