@@ -47,6 +47,11 @@ export default function ProfilePage() {
 
   const { updateprofile, isProfileUpdating } = useUpdateProfile();
 
+  const imageUrl =
+    profileData?.photo && profileData.photo !== "null"
+      ? profileData.photo
+      : avatar;
+
   const handleOnSubmit: SubmitHandler<IUpdateUser> = async (data) => {
     const updatedData = {
       firstname: data.firstname,
@@ -101,7 +106,7 @@ export default function ProfilePage() {
               <div className="flex flex-col items-center space-y-4">
                 <div className="w-32 h-32 rounded-full overflow-hidden bg-gray-200 relative">
                   <Image
-                    src={profileImage || profileData?.photo || avatar}
+                    src={profileImage ? profileImage : imageUrl}
                     alt="Profile picture"
                     fill
                     className="w-full h-full object-cover"
@@ -242,7 +247,7 @@ export default function ProfilePage() {
           <div className="flex flex-col items-center space-y-6">
             <div className="w-32 h-32 rounded-full overflow-hidden bg-gray-200">
               <img
-                src={profileData?.photo || avatar}
+                src={profileImage ? profileImage : imageUrl}
                 alt="Profile picture"
                 className="w-full h-full object-cover"
               />
