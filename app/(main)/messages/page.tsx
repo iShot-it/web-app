@@ -4,25 +4,25 @@ import { useState } from 'react'
 import Image from 'next/image'
 import { MessageCircle } from 'lucide-react'
 import { avatar } from '@/lib/constant'
-import { useAuth } from '@/context/AuthContext'
+import { useGetUser } from "@/app/api/user";
 
 interface Contact {
-  id: string
-  name: string
-  image: string
+  id: string;
+  name: string;
+  image: string;
 }
 
 const contacts: Contact[] = [
-  { id: '1', name: 'Bestie', image: '/placeholder.svg?height=40&width=40' },
-  { id: '2', name: 'Daniella_u', image: '/placeholder.svg?height=40&width=40' },
-  { id: '3', name: 'Promise', image: '/placeholder.svg?height=40&width=40' },
-  { id: '4', name: 'Victooria', image: '/placeholder.svg?height=40&width=40' },
-  { id: '5', name: 'Curiosita', image: '/placeholder.svg?height=40&width=40' },
-]
+  { id: "1", name: "Bestie", image: "/placeholder.svg?height=40&width=40" },
+  { id: "2", name: "Daniella_u", image: "/placeholder.svg?height=40&width=40" },
+  { id: "3", name: "Promise", image: "/placeholder.svg?height=40&width=40" },
+  { id: "4", name: "Victooria", image: "/placeholder.svg?height=40&width=40" },
+  { id: "5", name: "Curiosita", image: "/placeholder.svg?height=40&width=40" },
+];
 
 export default function MessagesPage() {
-  const [hasMessages] = useState(true) // Toggle this to show empty state
-  const {loggedInUser}= useAuth()
+  const { profileData } = useGetUser();
+  const [hasMessages] = useState(true); // Toggle this to show empty state
 
   if (!hasMessages) {
     return (
@@ -37,8 +37,13 @@ export default function MessagesPage() {
           </p>
         </div>
       </div>
-    )
+    );
   }
+
+  const imageUrl =
+    profileData?.photo && profileData.photo !== "null"
+      ? profileData.photo
+      : avatar;
 
   return (
     <div className="min-h-screen ">
@@ -48,13 +53,15 @@ export default function MessagesPage() {
           <div className="flex items-center gap-3">
             <div className="relative w-12 h-12">
               <Image
-                src={loggedInUser?.photo||avatar}
+                src={imageUrl}
                 alt="Profile"
                 fill
                 className="rounded-full object-cover"
               />
             </div>
-            <h1 className="text-lg font-semibold text-gray-900">{loggedInUser?.username}</h1>
+            <h1 className="text-lg font-semibold text-gray-900">
+              {profileData?.username}
+            </h1>
           </div>
         </div>
 
@@ -84,5 +91,5 @@ export default function MessagesPage() {
         </div>
       </div>
     </div>
-  )
+  );
 }
